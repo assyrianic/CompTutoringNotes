@@ -235,12 +235,12 @@ public static int printGreeting(String name) {
 
 ---
 
-## Statements:
+# Java Statements
 
 Statements are any part/line of code that performs a basic computing action such as loading/storing data, managing control flow, or other things. Typically, statements can use expressions as part of their construct. Let's look at a few statements. Many statements also allow statements for them, allow for more intricate, complex code to accomplish more complex tasks.
 
 
-### Block Statement:
+## Block Statement:
 
 Most basic statement that begins using curly brackets and contains statements between those curly brackets.
 ```java
@@ -251,7 +251,7 @@ Most basic statement that begins using curly brackets and contains statements be
 }
 ```
 
-### Expression Statement:
+## Expression Statement:
 
 Most common statement, usually method calls or data manipulation of variables, basically a statement that is solely an expression.
 ```
@@ -259,7 +259,7 @@ Most common statement, usually method calls or data manipulation of variables, b
 ```
 
 
-### Variable Declaration and Initialization Statement:
+## Variable Declaration and Initialization Statement:
 
 For basic data types:
 ```
@@ -298,7 +298,7 @@ MyClass g = new MyClass();
 ```
 
 
-### If-Statement:
+## If-Statement:
 
 Most basic control flow statement, runs code based on a boolean expression called a _condition_.
 ```
@@ -361,7 +361,7 @@ if( grade >= 90 ) {
 }
 ```
 
-#### Ternary Expression:
+### Ternary Expression:
 
 If you ever come across a situation where you have to initialize a variable to a value that's based on an existing condition, rather than making a variable and then using an if-statement, you can alternatively use a ternary expression aka an inline if-expression.
 
@@ -384,7 +384,7 @@ int comparison = (x < 0)? -1 : ((x > 0)? 1 : 0);
 ```
 
 
-### Switch-Statement:
+## Switch-Statement:
 
 More advanced, compact form of the if-statement.
 Most useful if you have to compare a singular item to alot of different values.
@@ -483,7 +483,7 @@ for (int num : nums) {
 If you have to stop the loop some how and you want a switch statement within the loop, use another variable, preferrably a `boolean` type, to be able to kill the loop. Your homework is figuring out how to do that!
 
 
-### Return Statement:
+## Return Statement:
 
 Used in methods to return to its previous calling location and, if the method doesn't have a `void` return type, gives back a value.
 ```
@@ -496,7 +496,7 @@ return;
 ```
 
 
-### Try-Catch Statement:
+## Try-Catch Statement:
 
 The try-catch statement is for doing exception/error handling, allowing the program to "try" a block of code and "catch" any exceptions (errors) that may occur during execution. It's important to be able to handle errors as they happen to make the program more robust and continue running. Without handling exceptions/errors, a program would cease every time whether unexpectedly or the user is assaulted with an error message they might not understand.
 
