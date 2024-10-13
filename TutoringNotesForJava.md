@@ -5,27 +5,29 @@ Programming languages are a combination of mathematical concepts from computer s
 
 
 *Idea of Types*
-Types are basically the collection/grouping of values, usually specified by a set of possible values, a set of allowed operations on these values, and/or a representation of these values for a machine.
+Types are basically the collection/grouping of values, usually specified by a set of possible values, a set of allowed operations on these values, and/or a representation of these values for an abstract or concrete/physical machine.
+
 
 In Java, there's a few primitive/basic type families and their types:
 
-*Integers*:
-* `byte` - 8-bit integer that represents the integer range of [-128 , 127] .
+*Integers* (types that represent whole numbers):
+* `byte` - 8-bit integer that represents the integer range of [-128 , 127]
 * `char` - 16-bit integer for representing characters from text.
 * `short` - 16-bit integer that represents the integer range of [−32,768 , 32,767]
 * `int` - 32-bit integer that represents the integer range of [−2,147,483,648 , 2,147,483,647]
 * `long` - 64-bit integer that represents the integer range of [−9,223,372,036,854,775,808 , 9,223,372,036,854,775,807]
 
-*Floating-Points* (pseudo-real valued data):
+*Floating-Points* (types that (imperfectly) represent real numbers):
 * `float` - 32-bit floating point type.
 * `double` - 64-bit floating point type.
 
 *Textual*:
-* `String` - represents text.
+* `String` - represents text, this isn't a primitive but it is a basic type. It's also an `Object` type.
 
 *Special*:
 * `boolean` - 8-bit value that represents two values: `true` and `false`.
-* `void` - lack of type/untyped/no data.
+* `void` - represents no return type for a method. Methods with `void` do not return any values after they complete their execution.
+* `Object` - represents the most basic object. Java is Object-Oriented and all user-defined classes use `Object`. The purpose of CSC205 aka Object-Oriented Programming with Java, is to teach you about objects.
 
 ==============================================================================================================================
 
@@ -44,7 +46,7 @@ Mixing data types where one type is larger in bits/bytes than the others usually
 
 `c` -> a variable by itself is considered a valid expression, the type of the expression is the type of the variable itself.
 
-`"hi" + 1` -> a string added with a number (integer or floating-point) results in a string expression.
+`"hi" + 1` -> a string added with a number (integer or floating-point) results in a string expression. The `1` is automatically converted from an `int` type into a `String` like "1" and then combined with "hi" to create `"hi1"`. This kind of automatic conversion is called **__implicit conversion__**.
 
 `i + a.m()` -> expression where we have mathematic addition between a variable and a method call. This expression is only valid if `i` and the return value of the method `m` have compatible types. Typing rules, such as mixing integers and floating-point, still apply.
 
@@ -86,44 +88,98 @@ Arithmetic Operators (example):
 	* `--` - decrement: decreases a numeric value by 1 (--x) [pre: decreases value first in expression] (x--) [post: decreases value after expression]
 
 Bitwise Operators (example) [gives an integer type result]:
-	* `&` - bitwise AND (x & y)
-	* `|` - bitwise OR (x | y)
-	* `^` - bitwise XOR (x ^ y)
-	* `<<` - logical/arithmetic Left Bit Shift (x << y)
-	* `>>` - arithmetic Right Bit Shift (x >> y)
-	* `>>>` - logical Right Bit Shift (x >>> y)
-	* `~` - bitwise NOT/complement (~x)
+	* `&` - bitwise AND (`x & y`)
+	* `|` - bitwise OR (`x | y`)
+	* `^` - bitwise XOR (`x ^ y`)
+	* `<<` - logical/arithmetic Left Bit Shift (`x << y`)
+	* `>>` - arithmetic Right Bit Shift (`x >> y`)
+	* `>>>` - logical Right Bit Shift (`x >>> y`)
+	* `~` - bitwise NOT/complement (`~x`)
 
 Comparison Operators (example) [gives a boolean type result]:
-	* `>` - Greater-Than (x > y)
-	* `>=` - Greater-Than-Or-Equal-To (x >= y)
-	* `<` - Less-Than (x < y)
-	* `<=` - Less-Than-Or-Equal-To (x <= y)
-	* `==` - Equal-To (x == y)
-	* `!=` - Not-Equal-To (x != y)
-	* `instanceof` - Instance of "class" (x instanceof y) [used to check if an object is from a specific class]
+	* `>` - Greater-Than (`x > y`)
+	* `>=` - Greater-Than-Or-Equal-To (`x >= y`)
+	* `<` - Less-Than (`x < y`)
+	* `<=` - Less-Than-Or-Equal-To (`x <= y`)
+	* `==` - Equal-To (`x == y`)
+	* `!=` - Not-Equal-To (`x != y`)
+	* `instanceof` - Instance of "class" (`x instanceof y`) [used to check if an object is from a specific class]
 
 Logical Operators (example) [gives a boolean type result]:
-	* `&&` - logical AND (x && y)
-	* `||` - logical OR (x || y)
-	* `!` - logical NOT (!x)
+	* `&&` - logical AND (`x && y`)
+	* `||` - logical OR (`x || y`)
+	* `!` - logical NOT (`!x`)
 
 Assignment Operators (example):
-	* `=` - Assignment/Copy (x = y)
-	* `+=` - Compound Addition (x += y) [same as: (x = x + y)]
-	* `-=` - Compound Subtraction (x -= y) [same as: (x = x - y)]
-	* `*=` - Compound Multiplication (x \*= y) [same as: (x = x \* y)]
-	* `/=` - Compound Division (x /= y) [same as: (x = x / y)]
-	* `%=` - Compound Modulo (x %= y) [same as: (x = x % y)]
-	* `&=` - Compound Bitwise-AND (x &= y) [same as: (x = x & y)]
-	* `|=` - Compound Bitwise-OR (x |= y) [same as: (x = x | y)]
-	* `^=` - Compound Bitwise-XOR (x ^= y) [same as: (x = x ^ y)]
-	* `<<=` - Compound Left Bit Shift (x <<= y) [same as: (x = x << y)]
-	* `>>=` - Compound Arithmetic Right Bit Shift (x >>= y) [same as: (x = x >> y)]
-	* `>>>=` - Compound Logical Right Bit Shift (x >>>= y) [same as: (x = x >>> y)]
+	* `=` - Assignment/Copy (`x = y`)
+	* `+=` - Compound Addition (`x += y`) [same as: (x = x + y)]
+	* `-=` - Compound Subtraction (`x -= y`) [same as: (x = x - y)]
+	* `*=` - Compound Multiplication (`x *= y`) [same as: (`x = x * y`)]
+	* `/=` - Compound Division (`x /= y`) [same as: (x = x / y)]
+	* `%=` - Compound Modulo (`x %= y`) [same as: (x = x % y)]
+	* `&=` - Compound Bitwise-AND (`x &= y`) [same as: (x = x & y)]
+	* `|=` - Compound Bitwise-OR (`x |= y`) [same as: (x = x | y)]
+	* `^=` - Compound Bitwise-XOR (`x ^= y`) [same as: (x = x ^ y)]
+	* `<<=` - Compound Left Bit Shift (`x <<= y`) [same as: (x = x << y)]
+	* `>>=` - Compound Arithmetic Right Bit Shift (`x >>= y`) [same as: (x = x >> y)]
+	* `>>>=` - Compound Logical Right Bit Shift (`x >>>= y`) [same as: (x = x >>> y)]
 
 Special Operators (example):
-	* `.` - Field/Member Access (x.y)
+	* `.` - Field/Member Access (`x.y`)
+
+
+*Operator Precedence:*
+Similar to how math has PEMDAS/BODMAS to remember the precedence of each expression in math, Java and other programming languages also have their own defined operator precedence:
+
+Level   Operator   Description           Associativity
+------------------------------------------------------
+16        ()       parentheses           left-to-right
+          []       array access
+          new      object creation
+           .       member access
+          ::       method reference
+------------------------------------------------------
+15        ++       unary post-increment  left-to-right
+          --       unary post-decrement
+------------------------------------------------------
+14        +        unary plus            right-to-left
+          -        unary minus
+          !        unary logical NOT
+          ~        unary bitwise NOT
+          ++       unary pre-increment
+          --       unary pre-decrement
+------------------------------------------------------
+13     (type)expr  type cast             right-to-left
+------------------------------------------------------
+12       * / %     multiplicative        left-to-right
+------------------------------------------------------
+11       + -       additive              left-to-right
+          +        string concatenation
+------------------------------------------------------
+10     << >> >>>   shift                 left-to-right
+------------------------------------------------------
+9      < <= > >=   relational            left-to-right
+       instanceof
+------------------------------------------------------
+8        == !=     equality              left-to-right
+------------------------------------------------------
+7         &        bitwise AND           left-to-right
+------------------------------------------------------
+6         ^        bitwise XOR           left-to-right
+------------------------------------------------------
+5         |        bitwise OR            left-to-right
+------------------------------------------------------
+4        &&        logical AND           left-to-right
+------------------------------------------------------
+3        ||        logical OR            left-to-right
+------------------------------------------------------
+2        ?:        ternary               right-to-left
+------------------------------------------------------
+1      = += -=     assignment            right-to-left
+      *= /= %=
+      &= ^= |=
+     <<= >>= >>>=
+------------------------------------------------------
 
 
 *Methods*
@@ -292,6 +348,27 @@ if( grade >= 90 ) {
 }
 ```
 
+*Ternary Expression*:
+If you ever come across a situation where you have to initialize a variable to a value that's based on an existing condition, rather than making a variable and then using an if-statement, you can alternatively use a ternary expression aka an inline if-expression.
+
+```
+<boolean expression> ? <expression if true> : <expression if false>;
+```
+
+Example:
+```java
+int i = (a > 5)? a * 5 : a + 5;
+...
+int x = ...;
+System.out.println("is x greater than 7?: " + (x > 7? "yes" : "no"));
+```
+
+Since Ternary Expressions are themselves expressions, that means you can _nest_ them but be careful doing this because it can hurt readability [ability for programmers to read and understand what the code is doing and why]. A good tip is to use parentheses to make it a bit clearer but still tread carefully.
+:
+```java
+int comparison = (x < 0)? -1 : ((x > 0)? 1 : 0);
+```
+
 
 * Switch-Statement:
 More advanced, compact form of the if-statement.
@@ -366,9 +443,22 @@ while (<boolean expression>) {
 }
 ```
 
+For Arrays and other collection objects [special objects that hold multiple data in a similar manner to arrays], there is a special for-loop syntax that helps simplify iterating/traversing these kinds of objects:
+```
+for (<variable declaration that matches type of array/collection> : <array/collection typed expression>) <statement>
+```
+Example:
+```java
+int[] nums = new int[array_size];
+fillNums(nums);
+for (int num : nums) {
+	System.out.println(num);
+}
+```
+
 * Loop Controllers: Flow Statements
-	* `continue` -> skips the current iteration of the loop and goes to the next.
-	* `break` -> completely stops the loop.
+	* **`continue`** -> skips the current iteration of the loop and goes to the next.
+	* **`break`** -> completely stops the loop.
 
 **NOTE:** be careful using a switch statement in a loop because the `break` needed for the cases will NOT stop the loop.
 If you have to stop the loop some how and you want a switch statement within the loop, use another variable, preferrably a `boolean` type, to be able to kill the loop. Your homework is figuring out how to do that!
@@ -384,3 +474,60 @@ If the method has a `void` return type, then no expression is given to the `retu
 ```
 return;
 ```
+
+
+* Try-Catch Statement:
+The try-catch statement is for doing exception/error handling, allowing the program to "try" a block of code and "catch" any exceptions (errors) that may occur during execution. It's important to be able to handle errors as they happen to make the program more robust and continue running. Without handling exceptions/errors, a program would cease every time whether unexpectedly or the user is assaulted with an error message they might not understand.
+
+At its most basic:
+```
+try <block statement>
+catch (<exception type> <variable name>) <block statement>
+```
+
+You can have as many catch portions as you need to handle as many errors as needed.
+```
+try <block statement>
+catch (<exception type> <variable name>) <block statement>
+...
+catch (<exception type> <variable name>) <block statement>
+```
+
+Also as an option, you can use a `finally` portion that will **always** execute regardless whether an error happened or not:
+```
+try <block statement>
+catch (<exception type> <variable name>) <block statement>...
+finally <block statement>
+```
+
+Example without try-catch:
+```java
+int[] myNumbers = {1, 2, 3};
+System.out.println(myNumbers[10]); // error!
+```
+Console Message:
+```
+Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 10 out of bounds for length 3
+```
+
+Example _with_ try-catch:
+```java
+int[] myNumbers = {1, 2, 3};
+try {
+	System.out.println(myNumbers[10]);
+} catch(ArrayIndexOutOfBoundsException e) {
+	System.out.println("Error :: ****" + e + "**** | try a different index.");
+}
+```
+
+Not exactly recommended but if it's necessary to catch ALL errors with one catch block, you can use the `Exception` type.
+It's not recommended because sometimes different errors need to be handled differently but, if you're planning to handle all errors the same way, then simply using `Exception` is fine. Special errors I'd recommend handling specially are `NullPointerException` (trying to use an object that's null) and `ArithmeticException` (such as dividing by 0).
+```
+int[] myNumbers = {1, 2, 3};
+try {
+	System.out.println(myNumbers[10]);
+} catch(Exception e) {
+	System.out.println("Error :: ****" + e + "****");
+}
+```
+==============================================================================================================================
