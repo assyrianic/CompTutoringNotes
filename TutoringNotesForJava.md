@@ -56,6 +56,7 @@ Mixing data types where one type is larger in bits/bytes than the others usually
 In Java, expressions work on a basis of operators and how they're defined for various types.
 
 For Java, there's different categories of operators:
+
 * Arithmetic operators
 * Bitwise operators
 * Comparison operators
@@ -63,7 +64,8 @@ For Java, there's different categories of operators:
 * Assignment operators
 * Special operators
 
-Arithmetic Operators (example):
+
+* Arithmetic Operators (example):
 	* `+` - addition (x + y)
 	* `-` - subtraction (x - y)
 	* `-` - negate (-x)
@@ -87,7 +89,7 @@ Arithmetic Operators (example):
 	* `++` - increment: increases a numeric value by 1 (++x) [pre: increases value first in expression] (x++) [post: increases value after expression]
 	* `--` - decrement: decreases a numeric value by 1 (--x) [pre: decreases value first in expression] (x--) [post: decreases value after expression]
 
-Bitwise Operators (example) [gives an integer type result]:
+* Bitwise Operators (example) [gives an integer type result]:
 	* `&` - bitwise AND (`x & y`)
 	* `|` - bitwise OR (`x | y`)
 	* `^` - bitwise XOR (`x ^ y`)
@@ -96,7 +98,7 @@ Bitwise Operators (example) [gives an integer type result]:
 	* `>>>` - logical Right Bit Shift (`x >>> y`)
 	* `~` - bitwise NOT/complement (`~x`)
 
-Comparison Operators (example) [gives a boolean type result]:
+* Comparison Operators (example) [gives a boolean type result]:
 	* `>` - Greater-Than (`x > y`)
 	* `>=` - Greater-Than-Or-Equal-To (`x >= y`)
 	* `<` - Less-Than (`x < y`)
@@ -105,12 +107,12 @@ Comparison Operators (example) [gives a boolean type result]:
 	* `!=` - Not-Equal-To (`x != y`)
 	* `instanceof` - Instance of "class" (`x instanceof y`) [used to check if an object is from a specific class]
 
-Logical Operators (example) [gives a boolean type result]:
+* Logical Operators (example) [gives a boolean type result]:
 	* `&&` - logical AND (`x && y`)
 	* `||` - logical OR (`x || y`)
 	* `!` - logical NOT (`!x`)
 
-Assignment Operators (example):
+* Assignment Operators (example):
 	* `=` - Assignment/Copy (`x = y`)
 	* `+=` - Compound Addition (`x += y`) [same as: (x = x + y)]
 	* `-=` - Compound Subtraction (`x -= y`) [same as: (x = x - y)]
@@ -124,13 +126,15 @@ Assignment Operators (example):
 	* `>>=` - Compound Arithmetic Right Bit Shift (`x >>= y`) [same as: (x = x >> y)]
 	* `>>>=` - Compound Logical Right Bit Shift (`x >>>= y`) [same as: (x = x >>> y)]
 
-Special Operators (example):
+* Special Operators (example):
 	* `.` - Field/Member Access (`x.y`)
 
 
 *Operator Precedence:*
+
 Similar to how math has PEMDAS/BODMAS to remember the precedence of each expression in math, Java and other programming languages also have their own defined operator precedence:
 
+```
 Level   Operator   Description           Associativity
 ------------------------------------------------------
 16        ()       parentheses           left-to-right
@@ -180,7 +184,7 @@ Level   Operator   Description           Associativity
       &= ^= |=
      <<= >>= >>>=
 ------------------------------------------------------
-
+```
 
 *Methods*
 Methods are for organizing code functionality and mapping it to a name.
@@ -201,7 +205,7 @@ public protected private static final
 
 The other modifiers are for controlling the visibility of methods (and class members).
 Here's a table that explains the modifiers how much visibility they allow. 
-
+```
 ✔️: accessible
 ❌: not accessible
 -------------------------------------------------------------------------------------------
@@ -215,7 +219,7 @@ no modifier |   ✔️    |    ✔️    |          ✔️          |          �
 -------------------------------------------------------------------------------------------
 private     |   ✔️    |    ❌️    |          ❌️          |          ❌          |    ❌️   |
 -------------------------------------------------------------------------------------------
-
+```
 
 Example:
 ```java
@@ -223,7 +227,6 @@ public static int printGreeting(String name) {
 	System.out.println("Hello " + name + ", I hope you're doing well!");
 }
 ```
-
 
 ==============================================================================================================================
 
@@ -352,7 +355,7 @@ if( grade >= 90 ) {
 If you ever come across a situation where you have to initialize a variable to a value that's based on an existing condition, rather than making a variable and then using an if-statement, you can alternatively use a ternary expression aka an inline if-expression.
 
 ```
-<boolean expression> ? <expression if true> : <expression if false>;
+<boolean expression> ? <expression if true> : <expression if false>
 ```
 
 Example:
