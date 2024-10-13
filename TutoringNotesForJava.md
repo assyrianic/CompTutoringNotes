@@ -1,37 +1,40 @@
-**Java Types & Expressions**
+# Java Types & Expressions
 
-*Intro*
+## Intro
+
 Programming languages are a combination of mathematical concepts from computer science and human language concepts such as syntax (grammar) and meaning (semantics). The key to understanding programming languages requires not just understanding the mathematical concepts but the grammar and semantics of the programming language.
 
 
-*Idea of Types*
+## Idea of Types:
+
 Types are basically the collection/grouping of values, usually specified by a set of possible values, a set of allowed operations on these values, and/or a representation of these values for an abstract or concrete/physical machine.
 
 
 In Java, there's a few primitive/basic type families and their types:
 
-*Integers* (types that represent whole numbers):
+**Integers** (types that represent whole numbers):
 * `byte` - 8-bit integer that represents the integer range of [-128 , 127]
 * `char` - 16-bit integer for representing characters from text.
 * `short` - 16-bit integer that represents the integer range of [−32,768 , 32,767]
 * `int` - 32-bit integer that represents the integer range of [−2,147,483,648 , 2,147,483,647]
 * `long` - 64-bit integer that represents the integer range of [−9,223,372,036,854,775,808 , 9,223,372,036,854,775,807]
 
-*Floating-Points* (types that (imperfectly) represent real numbers):
+**Floating-Points** (types that (imperfectly) represent real numbers):
 * `float` - 32-bit floating point type.
 * `double` - 64-bit floating point type.
 
-*Textual*:
+**Textual**:
 * `String` - represents text, this isn't a primitive but it is a basic type. It's also an `Object` type.
 
-*Special*:
+**Special**:
 * `boolean` - 8-bit value that represents two values: `true` and `false`.
 * `void` - represents no return type for a method. Methods with `void` do not return any values after they complete their execution.
 * `Object` - represents the most basic object. Java is Object-Oriented and all user-defined classes use `Object`. The purpose of CSC205 aka Object-Oriented Programming with Java, is to teach you about objects.
 
-==============================================================================================================================
+---
 
-*Expressions*
+## Expressions
+
 In programming languages and math, there's the concept of an _expression_. Expressions, in programming languages, are any line/part of code that can compute a value. Here are some examples that use the basic data types we talked about:
 
 `2 * 2` -> This expression is the multiplication of two integers, the type of the expression will thus be an integer type result. The result of course will be an `int` 
@@ -50,9 +53,10 @@ Mixing data types where one type is larger in bits/bytes than the others usually
 
 `i + a.m()` -> expression where we have mathematic addition between a variable and a method call. This expression is only valid if `i` and the return value of the method `m` have compatible types. Typing rules, such as mixing integers and floating-point, still apply.
 
-==============================================================================================================================
+---
 
-*Operators*
+### Operators
+
 In Java, expressions work on a basis of operators and how they're defined for various types.
 
 For Java, there's different categories of operators:
@@ -186,7 +190,8 @@ Level   Operator   Description           Associativity
 ------------------------------------------------------
 ```
 
-*Methods*
+### Methods
+
 Methods are for organizing code functionality and mapping it to a name.
 
 Method Structure:
@@ -211,13 +216,13 @@ Here's a table that explains the modifiers how much visibility they allow.
 -------------------------------------------------------------------------------------------
             |  Class  |  Package  |  Subclass(same pkg)  |  Subclass(diff pkg)  |  World  |
 -------------------------------------------------------------------------------------------
-public      |   ✔️    |    ✔️    |          ✔️          |          ✔️          |    ✔️   |
+public      |   ✔️    |    ✔️    |          ✔️          |          ✔️         |    ✔️   |
 -------------------------------------------------------------------------------------------
-protected   |   ✔️    |    ✔️    |          ✔️          |          ✔️          |    ❌️   |
+protected   |   ✔️    |    ✔️    |          ✔️          |          ✔️         |    ❌️   |
 -------------------------------------------------------------------------------------------
-no modifier |   ✔️    |    ✔️    |          ✔️          |          ❌          |    ❌️   |
+no modifier |   ✔️    |    ✔️    |          ✔️          |          ❌         |    ❌️   |
 -------------------------------------------------------------------------------------------
-private     |   ✔️    |    ❌️    |          ❌️          |          ❌          |    ❌️   |
+private     |   ✔️    |    ❌️    |          ❌️          |          ❌         |    ❌️   |
 -------------------------------------------------------------------------------------------
 ```
 
@@ -228,13 +233,15 @@ public static int printGreeting(String name) {
 }
 ```
 
-==============================================================================================================================
+---
 
-*Statements*:
+## Statements:
+
 Statements are any part/line of code that performs a basic computing action such as loading/storing data, managing control flow, or other things. Typically, statements can use expressions as part of their construct. Let's look at a few statements. Many statements also allow statements for them, allow for more intricate, complex code to accomplish more complex tasks.
 
 
-* Block Statement:
+### Block Statement:
+
 Most basic statement that begins using curly brackets and contains statements between those curly brackets.
 ```java
 {
@@ -244,14 +251,16 @@ Most basic statement that begins using curly brackets and contains statements be
 }
 ```
 
-* Expression Statement:
+### Expression Statement:
+
 Most common statement, usually method calls or data manipulation of variables, basically a statement that is solely an expression.
 ```
 <expression>;
 ```
 
 
-* Variable Declaration and Initialization Statement:
+### Variable Declaration and Initialization Statement:
+
 For basic data types:
 ```
 <type-name> <variable name> = <expression that matches the type-name>;
@@ -289,7 +298,8 @@ MyClass g = new MyClass();
 ```
 
 
-* If-Statement:
+### If-Statement:
+
 Most basic control flow statement, runs code based on a boolean expression called a _condition_.
 ```
 if (<boolean expression>) <statement>
@@ -351,7 +361,8 @@ if( grade >= 90 ) {
 }
 ```
 
-*Ternary Expression*:
+#### Ternary Expression:
+
 If you ever come across a situation where you have to initialize a variable to a value that's based on an existing condition, rather than making a variable and then using an if-statement, you can alternatively use a ternary expression aka an inline if-expression.
 
 ```
@@ -373,7 +384,8 @@ int comparison = (x < 0)? -1 : ((x > 0)? 1 : 0);
 ```
 
 
-* Switch-Statement:
+### Switch-Statement:
+
 More advanced, compact form of the if-statement.
 Most useful if you have to compare a singular item to alot of different values.
 You can have as many cases as you need, as long as there's no duplicate cases.
@@ -416,18 +428,22 @@ switch( title ) {
 ```
 
 
-* Loop Statements:
+## Loop Statements:
+
 For loops, they will run a statement until the boolean expression, called a _controller_ or also called a _condition_, is `false`.
 
-* While Loops:
+### While Loops:
 ```
 while (<boolean expression>) <statement>
 ```
-* Do-While Loops:
+
+### Do-While Loops:
 ```
 do <statement> while (<boolean expression>);
 ```
-* For Loops:
+
+### For Loops:
+
 For loops are complicated, but more compact.
 There are 3 parts to a for-loop.
 First part is variable declaration or initialization. Typically called the `init` portion.
@@ -459,15 +475,16 @@ for (int num : nums) {
 }
 ```
 
-* Loop Controllers: Flow Statements
-	* **`continue`** -> skips the current iteration of the loop and goes to the next.
-	* **`break`** -> completely stops the loop.
+### Loop Controllers: Flow Statements
+* **`continue`** -> skips the current iteration of the loop and goes to the next.
+* **`break`** -> completely stops the loop.
 
 **NOTE:** be careful using a switch statement in a loop because the `break` needed for the cases will NOT stop the loop.
 If you have to stop the loop some how and you want a switch statement within the loop, use another variable, preferrably a `boolean` type, to be able to kill the loop. Your homework is figuring out how to do that!
 
 
-* Return Statement:
+### Return Statement:
+
 Used in methods to return to its previous calling location and, if the method doesn't have a `void` return type, gives back a value.
 ```
 return <expression that matches the return type of the method>
@@ -479,7 +496,8 @@ return;
 ```
 
 
-* Try-Catch Statement:
+### Try-Catch Statement:
+
 The try-catch statement is for doing exception/error handling, allowing the program to "try" a block of code and "catch" any exceptions (errors) that may occur during execution. It's important to be able to handle errors as they happen to make the program more robust and continue running. Without handling exceptions/errors, a program would cease every time whether unexpectedly or the user is assaulted with an error message they might not understand.
 
 At its most basic:
@@ -533,4 +551,5 @@ try {
 	System.out.println("Error :: ****" + e + "****");
 }
 ```
-==============================================================================================================================
+
+---
