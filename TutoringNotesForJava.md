@@ -41,11 +41,12 @@ In programming languages and math, there's the concept of an _expression_. Expre
 
 `2 * 2.0` -> this expression is the multiplication of an integer (left) and a floating-point value (right), the type of the expression will be a floating-point result type and this is because mixing integers with floating-points, in an expression, are defined to result in a floating-point type. In this case, the `2` integer is converted to `2.0` then multiplied with the other `2.0`.
 
-`a >= 5` -> this expression is a comparison (greater-than-or-equal to) between a variable and an integer, the expression will thus result as a boolean type since the only posibility is whether `a` is greater-than-or-equal to `5`.
+`a >= 5` -> this expression is a comparison (greater-than-or-equal to) between a variable and an integer, the expression will thus result as a `boolean` type since the only posibility is whether `a` is greater-than-or-equal to `5` or not.
 
 Mixing data types where one type is larger in bits/bytes than the others usually results in an expression where the type is the largest sized data type. IE mixing `long` (64-bit) and `int` (32-bit) in an expression will give a result that is a `long` type.
 
-`2 * 5 + b` -> this is a multi-expression (expression within expression). The expression (should) first compute the `2 * 5` and then compute the result of that value with `i`.
+`2 * 5 + b` -> this is a multi-expression (expression within expression). The expression (should) first compute the `2 * 5` and then compute the result of that value with `b`.
+
 `(2 * 5) + b` -> same expression but nicely organized with parentheses.
 
 `c` -> a variable by itself is considered a valid expression, the type of the expression is the type of the variable itself!
@@ -94,7 +95,18 @@ For Java, there's different categories of operators:
 	```
 
 * `++` - increment: increases a numeric value by 1 (`++x`) [pre: increases value first in expression] (x++) [post: increases value after expression]
+```java
+int a = 1;
+System.out.println(a++);  // prints 1. 'a' is now 2.
+System.out.println(++a);  // prints 3. 'a' is now 3.
+```
+
 * `--` - decrement: decreases a numeric value by 1 (`--x`) [pre: decreases value first in expression] (x--) [post: decreases value after expression]
+```java
+int a = 1;
+System.out.println(a--);  // prints  1. 'a' is now  0.
+System.out.println(--a);  // prints -1. 'a' is now -1.
+```
 
 #### Bitwise Operators (example) [gives an integer type result]
 
@@ -548,9 +560,27 @@ for (<variable declaration that matches type of array/collection> : <array/colle
 ```
 Example:
 ```java
+int[] nums = new int[size];
+fillNums(nums);
+for( int num : nums ) {
+	System.out.println(num);
+}
+```
+
+Which is pretty much equivalent to:
+```
+for( int i=0; i < <container length value>; i++ ) {
+	<variable declaration that matches type of array/collection>;
+	<statement>
+}
+```
+
+Using our example from previous:
+```java
 int[] nums = new int[array_size];
 fillNums(nums);
-for (int num : nums) {
+for( int i=0; i < nums.length; i++ ) {
+	int num = nums[i];
 	System.out.println(num);
 }
 ```
@@ -569,10 +599,46 @@ Used in methods to return to its previous calling location and, if the method do
 ```
 return <expression that matches the return type of the method>
 ```
+Example:
+```java
+public static int findIndexOfValueInArray(int[] numbers, int value) {
+	for( int i=0; i < numbers.length; i++ ) {
+		if( numbers[i] == value ) {
+			return i;
+		}
+	}
+	return -1; // error value.
+}
+```
+
+**NOTE::** the __`int`__ part of the method, that's the return type of the method, _and_ the return value of i which is an `int`-based integer expression.
+
 
 If the method has a `void` return type, then no expression is given to the `return`:
 ```
-return;
+public static void enterVote(int age, int candidate_number, int[] votes) {
+	if( age < REQUIRED_AGE ) {
+		System.out.println("sorry you're not old enough to vote in this election.");
+		return;
+	}
+	votes[candidateNumToIndex(candidate_number)]++;
+}
+
+public static void sortVotes(int[] votes) {
+	if( votes.length <= 1 ) {
+		return;
+	}
+	
+	for( int i=0; i < votes.length; i++ ) {
+		for( int j=0; j < votes.length; j++ ) {
+			if(i != j && votes[j] < votes[i]) {
+				int temp = a[i];
+				a[i] = a[j];
+				a[j] = temp;
+			}
+		}
+	}
+}
 ```
 
 
@@ -633,13 +699,3 @@ try {
 ```
 
 ---
-
-# Putting Everything Together
-
-```java
-public class Main {
-	public static void main(String[] args) {
-		System.out.println("hello world");
-	}
-}
-```
