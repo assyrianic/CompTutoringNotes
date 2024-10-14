@@ -37,8 +37,9 @@ In Java, there's a few primitive/basic type families and their types:
 
 In programming languages and math, there's the concept of an _expression_. Expressions, in programming languages, are any line/part of code that can compute a value. Here are some examples that use the basic data types we talked about:
 
-`2 * 2` -> This expression is the multiplication of two integers, the type of the expression will thus be an integer type result. The result of course will be an `int` 
-`2 * 2.0` -> this expression is the multiplication of an integer (left) and a floating-point value (right), the type of the expression will be a floating-point result type and this is because mixing integers with floating-points, in an expression, are defined to result in a floating-point type.
+`2 * 2` -> This expression is the multiplication of two integers, the type of the expression will thus be an integer type result. The result of course will be an `int`.
+
+`2 * 2.0` -> this expression is the multiplication of an integer (left) and a floating-point value (right), the type of the expression will be a floating-point result type and this is because mixing integers with floating-points, in an expression, are defined to result in a floating-point type. In this case, the `2` integer is converted to `2.0` then multiplied with the other `2.0`.
 
 `a >= 5` -> this expression is a comparison (greater-than-or-equal to) between a variable and an integer, the expression will thus result as a boolean type since the only posibility is whether `a` is greater-than-or-equal to `5`.
 
@@ -47,7 +48,7 @@ Mixing data types where one type is larger in bits/bytes than the others usually
 `2 * 5 + b` -> this is a multi-expression (expression within expression). The expression (should) first compute the `2 * 5` and then compute the result of that value with `i`.
 `(2 * 5) + b` -> same expression but nicely organized with parentheses.
 
-`c` -> a variable by itself is considered a valid expression, the type of the expression is the type of the variable itself.
+`c` -> a variable by itself is considered a valid expression, the type of the expression is the type of the variable itself!
 
 `"hi" + 1` -> a string added with a number (integer or floating-point) results in a string expression. The `1` is automatically converted from an `int` type into a `String` like "1" and then combined with "hi" to create `"hi1"`. This kind of automatic conversion is called **__implicit conversion__**.
 
@@ -69,74 +70,83 @@ For Java, there's different categories of operators:
 * Special operators
 
 
-* Arithmetic Operators (example):
-	* `+` - addition (x + y)
-	* `-` - subtraction (x - y)
-	* `-` - negate (-x)
-	* `*` - multiplication (x * y)
-	* `/` - division (x / y)
+#### Arithmetic Operators (example):
+
+* `+` - addition (`x + y`)
+* `-` - subtraction (`x - y`)
+* `-` - negate (`-x`)
+* `+` - int promotion (`+x`) [promotes an integer expression's type to an `int` type]
+* `*` - multiplication (`x * y`)
+* `/` - division (`x / y`)
+
+* `%` - modulo/integer division-remainder (`x % y`) [gives integer remainder]
+	```
+	10 / 3 == 3
+	10 % 3 == 1. Why?
+	What's a multiple of 3 closest to 10? Answer: 9.
+	What's 10 - 9? Answer: 1, thus the modulo of 10 with 3 is 1.
 	
-	* `%` - modulo/integer division-remainder (x % y) [gives integer remainder]
-		```
-		10 / 3 == 3
-		10 % 3 == 1. Why?
-		What's a multiple of 3 closest to 10? Answer: 9.
-		What's 10 - 9? Answer: 1, thus the modulo of 10 with 3 is 1.
-		
-		26 % 9 == 8. Multiple of 9 closest to 26 is 18. 26 - 18 == 8.
-		
-		13 % 3 == 1, multiple of 3 closest to 13 is 12, so 13-12 == 1.
-		9 % 3 == 0. multiple of 3 closest to 9 is 9, so 9 - 9 == 0.
-		a % b == 0, if 'a' is a multiple of 'b'.
-		```
+	26 % 9 == 8. Multiple of 9 closest to 26 is 18. 26 - 18 == 8.
 	
-	* `++` - increment: increases a numeric value by 1 (++x) [pre: increases value first in expression] (x++) [post: increases value after expression]
-	* `--` - decrement: decreases a numeric value by 1 (--x) [pre: decreases value first in expression] (x--) [post: decreases value after expression]
+	13 % 3 == 1, multiple of 3 closest to 13 is 12, so 13-12 == 1.
+	9 % 3 == 0. multiple of 3 closest to 9 is 9, so 9 - 9 == 0.
+	a % b == 0, if 'a' is a multiple of 'b'.
+	```
 
-* Bitwise Operators (example) [gives an integer type result]:
-	* `&` - bitwise AND (`x & y`)
-	* `|` - bitwise OR (`x | y`)
-	* `^` - bitwise XOR (`x ^ y`)
-	* `<<` - logical/arithmetic Left Bit Shift (`x << y`)
-	* `>>` - arithmetic Right Bit Shift (`x >> y`)
-	* `>>>` - logical Right Bit Shift (`x >>> y`)
-	* `~` - bitwise NOT/complement (`~x`)
+* `++` - increment: increases a numeric value by 1 (`++x`) [pre: increases value first in expression] (x++) [post: increases value after expression]
+* `--` - decrement: decreases a numeric value by 1 (`--x`) [pre: decreases value first in expression] (x--) [post: decreases value after expression]
 
-* Comparison Operators (example) [gives a boolean type result]:
-	* `>` - Greater-Than (`x > y`)
-	* `>=` - Greater-Than-Or-Equal-To (`x >= y`)
-	* `<` - Less-Than (`x < y`)
-	* `<=` - Less-Than-Or-Equal-To (`x <= y`)
-	* `==` - Equal-To (`x == y`)
-	* `!=` - Not-Equal-To (`x != y`)
-	* `instanceof` - Instance of "class" (`x instanceof y`) [used to check if an object is from a specific class]
+#### Bitwise Operators (example) [gives an integer type result]
 
-* Logical Operators (example) [gives a boolean type result]:
-	* `&&` - logical AND (`x && y`)
-	* `||` - logical OR (`x || y`)
-	* `!` - logical NOT (`!x`)
+* `&` - bitwise AND (`x & y`)
+* `|` - bitwise OR (`x | y`)
+* `^` - bitwise XOR (`x ^ y`)
+* `<<` - logical/arithmetic Left Bit Shift (`x << y`)
+* `>>` - arithmetic Right Bit Shift (`x >> y`)
+* `>>>` - logical Right Bit Shift (`x >>> y`)
+* `~` - bitwise NOT/complement (`~x`)
 
-* Assignment Operators (example):
-	* `=` - Assignment/Copy (`x = y`)
-	* `+=` - Compound Addition (`x += y`) [same as: (x = x + y)]
-	* `-=` - Compound Subtraction (`x -= y`) [same as: (x = x - y)]
-	* `*=` - Compound Multiplication (`x *= y`) [same as: (`x = x * y`)]
-	* `/=` - Compound Division (`x /= y`) [same as: (x = x / y)]
-	* `%=` - Compound Modulo (`x %= y`) [same as: (x = x % y)]
-	* `&=` - Compound Bitwise-AND (`x &= y`) [same as: (x = x & y)]
-	* `|=` - Compound Bitwise-OR (`x |= y`) [same as: (x = x | y)]
-	* `^=` - Compound Bitwise-XOR (`x ^= y`) [same as: (x = x ^ y)]
-	* `<<=` - Compound Left Bit Shift (`x <<= y`) [same as: (x = x << y)]
-	* `>>=` - Compound Arithmetic Right Bit Shift (`x >>= y`) [same as: (x = x >> y)]
-	* `>>>=` - Compound Logical Right Bit Shift (`x >>>= y`) [same as: (x = x >>> y)]
+#### Comparison Operators (example) [gives a boolean type result]
 
-* Special Operators (example):
-	* `.` - Field/Member Access (`x.y`)
+* `>` - Greater-Than (`x > y`)
+* `>=` - Greater-Than-Or-Equal-To (`x >= y`)
+* `<` - Less-Than (`x < y`)
+* `<=` - Less-Than-Or-Equal-To (`x <= y`)
+* `==` - Equal-To (`x == y`)
+* `!=` - Not-Equal-To (`x != y`)
+* `instanceof` - Instance of "class" (`x instanceof y`) [used to check if an object is from a specific class]
+
+#### Logical Operators (example) [gives a boolean type result]
+
+* `&&` - logical AND (`x && y`)
+* `||` - logical OR (`x || y`)
+* `!` - logical NOT (`!x`)
+
+#### Assignment Operators (example)
+
+* `=` - Assignment/Copy (`x = y`)
+* `+=` - Compound Addition (`x += y`) [same as: (`x = x + y`)]
+* `-=` - Compound Subtraction (`x -= y`) [same as: (`x = x - y`)]
+* `*=` - Compound Multiplication (`x *= y`) [same as: (`x = x * y`)]
+* `/=` - Compound Division (`x /= y`) [same as: (`x = x / y`)]
+* `%=` - Compound Modulo (`x %= y`) [same as: (`x = x % y`)]
+* `&=` - Compound Bitwise-AND (`x &= y`) [same as: (`x = x & y`)]
+* `|=` - Compound Bitwise-OR (`x |= y`) [same as: (`x = x | y`)]
+* `^=` - Compound Bitwise-XOR (`x ^= y`) [same as: (`x = x ^ y`)]
+* `<<=` - Compound Left Bit Shift (`x <<= y`) [same as: (`x = x << y`)]
+* `>>=` - Compound Arithmetic Right Bit Shift (`x >>= y`) [same as: (`x = x >> y`)]
+* `>>>=` - Compound Logical Right Bit Shift (`x >>>= y`) [same as: (`x = x >>> y`)]
+
+#### Special Operators (example)
+
+* `.` - Field/Member Access (`x.y`)
 
 
-*Operator Precedence:*
+### Operator Precedence
 
-Similar to how math has PEMDAS/BODMAS to remember the precedence of each expression in math, Java and other programming languages also have their own defined operator precedence:
+Similar to how math has PEMDAS/BODMAS to remember the precedence of each expression in math, Java and other programming languages also have their own defined operator precedence. Given that expressions can have inner expressions, it's important to know what operators and their operands are first processed your Java program runs.
+
+The following table represents, from **highest** priority to **lowest** priority, what operators go first.
 
 ```
 Level   Operator   Description           Associativity
@@ -159,7 +169,7 @@ Level   Operator   Description           Associativity
 ------------------------------------------------------
 13     (type)expr  type cast             right-to-left
 ------------------------------------------------------
-12       * / %     multiplicative        left-to-right
+12      * / %      multiplicative        left-to-right
 ------------------------------------------------------
 11       + -       additive              left-to-right
           +        string concatenation
@@ -189,6 +199,20 @@ Level   Operator   Description           Associativity
      <<= >>= >>>=
 ------------------------------------------------------
 ```
+
+so if we're given an expression like: `2 + 5 * 9 ^ 3 & 24 - 2 << 3`.
+
+The result is of an `int` type with the value `47`.
+
+The way Java and its Runtime has processed the number is as:
+```java
+2 + (5 * 9) ^ 3 & 24 - 2 << 3            // multiplication first.
+(2 + (5 * 9)) ^ 3 & (24 - 2) << 3        // addition then subtraction done next.
+(2 + (5 * 9)) ^ 3 & ((24 - 2) << 3)      // bit shift done next.
+(2 + (5 * 9)) ^ (3 & ((24 - 2) << 3))    // the Bitwise-AND done next.
+(2 + (5 * 9)) ^ (3 & ((24 - 2) << 3))    // then the Bitwise-XOR done last.
+```
+
 
 ### Methods
 
