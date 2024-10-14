@@ -151,23 +151,23 @@ The following table represents, from **highest** priority to **lowest** priority
 ```
 Level   Operator   Description           Associativity
 ------------------------------------------------------
-16        ()       parentheses           left-to-right
-          []       array access
+16        (a)      parentheses           left-to-right
+         a[b]      array access
           new      object creation
-           .       member access
-          ::       method reference
+          a.b      member access
+         a::b      method reference
 ------------------------------------------------------
-15        ++       unary post-increment  left-to-right
-          --       unary post-decrement
+15        a++      unary post-increment  left-to-right
+          a--      unary post-decrement
 ------------------------------------------------------
-14        +        unary plus            right-to-left
-          -        unary minus
-          !        unary logical NOT
-          ~        unary bitwise NOT
-          ++       unary pre-increment
-          --       unary pre-decrement
+14        +a       unary plus            right-to-left
+          -a       unary minus
+          !a       unary logical NOT
+          ~a       unary bitwise NOT
+          ++a      unary pre-increment
+          --a      unary pre-decrement
 ------------------------------------------------------
-13     (type)expr  type cast             right-to-left
+13     (type)a     type cast             right-to-left
 ------------------------------------------------------
 12      * / %      multiplicative        left-to-right
 ------------------------------------------------------
@@ -216,11 +216,11 @@ The way Java and its Runtime has processed the number is as:
 
 ### Methods
 
-Methods are for organizing code functionality and mapping it to a name.
+Methods are for organizing code/functionality and mapping it to a name where it allows a developer to break down the complexity of a system into smaller, more manageable chunks. Often if you have repetitive code, it's best to abstract that code into a method.
 
 Method Structure:
 ```
-<zero or more modifiers> <return-type> <method name>(<comma-separated parameters>) <block statement>
+<zero-or-more modifiers> <return-type> <method name>(<comma-separated parameters>) <block statement>
 ```
 
 Basic Modifiers that you can use on methods:
@@ -250,10 +250,57 @@ private     |   ✔️    |    ❌️    |          ❌️          |          �
 -------------------------------------------------------------------------------------------
 ```
 
-Example:
+Example of repetitive code:
 ```java
-public static int printGreeting(String name) {
-	System.out.println("Hello " + name + ", I hope you're doing well!");
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		
+		// Area of a square
+		System.out.print("Enter square side: ");
+		double side = scanner.nextDouble();
+		System.out.println("Square area: " + (side * side));
+		
+		// Area of a rectangle
+		System.out.print("Enter rectangle length: ");
+		double length = scanner.nextDouble();
+		System.out.print("Enter rectangle width: ");
+		double width = scanner.nextDouble();
+		System.out.println("Rectangle area: " + (length * width));
+	}
+}
+```
+
+same code but repetitive code is wrapped in methods:
+```java
+import java.util.Scanner;
+
+public class Main {
+	public static double calcArea(double length, double width) {
+		return length * width;
+	}
+	
+	public static double getDoubleInput(Scanner scnr, String msg_part) {
+		System.out.print("Enter " + msg_part + ": ");
+		double f = scnr.nextDouble();
+		scnr.nextLine();
+		return f;
+	}
+	
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		
+		// Area of a square
+		double side = getDoubleInput(scanner, "square side");
+		System.out.println("Square area: " + calcArea(side, side));
+		
+		// Area of a rectangle
+		double length = getDoubleInput(scanner, "rectangle length");
+		double width = getDoubleInput(scanner, "rectangle width");
+		System.out.println("Rectangle area: " + calcArea(length, width));
+	}
 }
 ```
 
@@ -266,7 +313,7 @@ Statements are any part/line of code that performs a basic computing action such
 
 ## Block Statement:
 
-Most basic statement that begins using curly brackets and contains statements between those curly brackets.
+The most basic statement that begins using curly brackets and contains statements between said curly brackets.
 ```java
 {
 	<statement1>;
@@ -275,11 +322,20 @@ Most basic statement that begins using curly brackets and contains statements be
 }
 ```
 
+Many other statements and constructs use the block statement as it's the only statement that allows multiple inner statements.
+
 ## Expression Statement:
 
-Most common statement, usually method calls or data manipulation of variables, basically a statement that is solely an expression.
+Most common statement, usually method calls or data manipulation of variables, basically a statement that is solely an expression. Usually, expression statements start using a variable or method name.
 ```
 <expression>;
+```
+
+Examples:
+```java
+i += 10;
+a.m();
+a[n] += 4;
 ```
 
 
@@ -577,3 +633,13 @@ try {
 ```
 
 ---
+
+# Putting Everything Together
+
+```java
+public class Main {
+	public static void main(String[] args) {
+		System.out.println("hello world");
+	}
+}
+```
