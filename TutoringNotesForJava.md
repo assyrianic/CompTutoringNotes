@@ -19,16 +19,56 @@ In Java, there's a few primitive/basic type families and their types:
 * `int` - 32-bit integer that represents the integer range of [−2,147,483,648 , 2,147,483,647]
 * `long` - 64-bit integer that represents the integer range of [−9,223,372,036,854,775,808 , 9,223,372,036,854,775,807]
 
+Examples of integer constants/literals:
+```java
+1       // decimal (base-10) constant
+-1_000  // decimal (base-10) constant
+0xA5    // hexadecimal (base-16) constant
+077     // octal (base-8) constant
+'A'     // character constant (uses single-quotes), same as integer value of 65.
+```
+
+
 **Floating-Points** (types that (imperfectly) represent real numbers):
 * `float` - 32-bit floating point type.
 * `double` - 64-bit floating point type.
 
+Examples of floating-point literals/constants:
+```java
+1.0           // real form constant of 1 (double type)
+1.f           // real form constant of 1 (float type, float type requires 'f' suffix at end of constant)
+0.5           // fractional form constant of 1/2 (double type)
+1.e6          // exponential form constant of 1 million (double type)
+
+0.00000149    // real form constant
+1.49e-6       // same constant as previous but exponential form
+```
+
 **Textual**:
 * `String` - represents text, this isn't a primitive but it is a basic type. It's also an `Object` type.
 
+Example of textual literals/constants:
+```java
+"this is a string"    // (text is enclosed with double-quotes)
+"\t\n"                // escape characters representing a tab and newline (escape characters start with back-slash)
+""                    // empty string
+```
+
+list of escape characters and what they do:
+```
+\b -> Backspace
+\f -> From Feed
+\n -> Newline
+\r -> Carriage Return
+\t -> Horizontal Tab
+\" -> Double Quote
+\' -> Single Quote
+\\ -> Backslash
+```
+
 **Special**:
 * `boolean` - 8-bit value that represents two values: `true` and `false`.
-* `void` - represents no return type for a method. Methods with `void` do not return any values after they complete their execution.
+* `void` - represents no return type for a method. Methods with `void` do not return any values after they complete their execution. [See the Methods section for more details]
 * `Object` - represents the most basic object. Java is Object-Oriented and all user-defined classes use `Object`. The purpose of CSC205 aka Object-Oriented Programming with Java, is to teach you about objects.
 
 ---
@@ -39,9 +79,9 @@ In programming languages and math, there's the concept of an _expression_. Expre
 
 `2 * 2` -> This expression is the multiplication of two integers, the type of the expression will thus be an integer type result. The result of course will be an `int`.
 
-`2 * 2.0` -> this expression is the multiplication of an integer (left) and a floating-point value (right), the type of the expression will be a floating-point result type and this is because mixing integers with floating-points, in an expression, are defined to result in a floating-point type. In this case, the `2` integer is converted to `2.0` then multiplied with the other `2.0`.
+`2 * 2.0` -> this expression is the multiplication of an integer (left) and a floating-point value (right), the type of the expression will be a floating-point result and this is because mixing integers with floating-points, in an expression, are defined to result in a floating-point type. In this case, the `2` integer is converted to `2.0` then multiplied with the other `2.0` thus roughly yielding a floating-point type value of `4.0`.
 
-`a >= 5` -> this expression is a comparison (greater-than-or-equal to) between a variable and an integer, the expression will thus result as a `boolean` type since the only posibility is whether `a` is greater-than-or-equal to `5` or not.
+`a >= 5` -> this expression is a comparison (greater-than-or-equal-to) between a variable and an integer, the expression's result will be a `boolean` type since the only posibility is whether `a` actually is greater-than-or-equal-to `5` or not.
 
 Mixing data types where one type is larger in bits/bytes than the others usually results in an expression where the type is the largest sized data type. IE mixing `long` (64-bit) and `int` (32-bit) in an expression will give a result that is a `long` type.
 
@@ -168,6 +208,7 @@ Level   Operator   Description           Associativity
           new      object creation
           a.b      member access
          a::b      method reference
+        a(b,c,..)  method call
 ------------------------------------------------------
 15        a++      unary post-increment  left-to-right
           a--      unary post-decrement
@@ -225,15 +266,34 @@ The way Java and its Runtime has processed the number is as:
 (2 + (5 * 9)) ^ (3 & ((24 - 2) << 3))    // then the Bitwise-XOR done last.
 ```
 
+---
 
-### Methods
+# Methods
 
-Methods are for organizing code/functionality and mapping it to a name where it allows a developer to break down the complexity of a system into smaller, more manageable chunks. Often if you have repetitive code, it's best to abstract that code into a method.
+Methods are for organizing code/functionality and mapping it to a name where it allows a developer to break down the complexity of a system into smaller, more manageable chunks.
 
 Method Structure:
 ```
 <zero-or-more modifiers> <return-type> <method name>(<comma-separated parameters>) <block statement>
 ```
+
+Best Example when you start Java I is:
+```java
+public static void main(String[] args) {
+	...;
+}
+```
+
+the `public static void main(String[] args)` part, this is called the __**method header**__.
+
+Referring back to the method structure, the method header is divided into 4 parts:
+`public static` - modifiers.
+`void` - return type of the method.
+`main` - method name.
+`(String[] args)` - method parameter(s). Methods can have zero, one, or as many parameters as needed.
+
+The method header, when it also has the block statement with it [see Block Statement in the Statements section], the entire method is called the Method Definition or Method Declaration.
+
 
 Basic Modifiers that you can use on methods:
 ```java
@@ -262,57 +322,27 @@ private     |   ✔️    |    ❌️    |          ❌️          |          �
 -------------------------------------------------------------------------------------------
 ```
 
-Example of repetitive code:
-```java
-import java.util.Scanner;
+#### Parameters & Arguments
 
-public class Main {
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		
-		// Area of a square
-		System.out.print("Enter square side: ");
-		double side = scanner.nextDouble();
-		System.out.println("Square area: " + (side * side));
-		
-		// Area of a rectangle
-		System.out.print("Enter rectangle length: ");
-		double length = scanner.nextDouble();
-		System.out.print("Enter rectangle width: ");
-		double width = scanner.nextDouble();
-		System.out.println("Rectangle area: " + (length * width));
-	}
+With methods, it's important to understand the definition and distinction of **parameters** and **arguments**.
+A **Parameter** is a special variable used to refer to one of the pieces of data provided as input to the method.
+On the other hand, an **Argument** is a value that's given as input to a method when the method is _invoked_ or _called_. By extension, a parameter itself can be used as an argument to methods given that parameters are variables.
+
+
+Parameter & Argument Example:
+```java
+                  // vvvvvvvvvvvv - method name in definition.
+public static double calcSalesTax(double price) {
+                               // ^^^^^^^^^^^^ - 'price' is a parameter.
+	return price * 0.06;  // using 'price' parameter in an expression!
 }
-```
-
-same code but repetitive code is wrapped in methods:
-```java
-import java.util.Scanner;
-
-public class Main {
-	public static double calcArea(double length, double width) {
-		return length * width;
-	}
-	
-	public static double getDoubleInput(Scanner scnr, String msg_part) {
-		System.out.print("Enter " + msg_part + ": ");
-		double f = scnr.nextDouble();
-		scnr.nextLine();
-		return f;
-	}
-	
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		
-		// Area of a square
-		double side = getDoubleInput(scanner, "square side");
-		System.out.println("Square area: " + calcArea(side, side));
-		
-		// Area of a rectangle
-		double length = getDoubleInput(scanner, "rectangle length");
-		double width = getDoubleInput(scanner, "rectangle width");
-		System.out.println("Rectangle area: " + calcArea(length, width));
-	}
+...
+public static void main(String[] args) {
+                                           // vvvvvvvvvvvv - method name in method call expression.
+	System.out.println("sales tax of $10: " + calcSalesTax(10.0));
+	                                                    // ^^^^^ - '10.0' is an argument.
+	                                                    // When control flow goes to 'calcSalesTax',
+	                                                    // 'price' will have the value of '10.0'.
 }
 ```
 
@@ -345,48 +375,66 @@ Most common statement, usually method calls or data manipulation of variables, b
 
 Examples:
 ```java
-i += 10;
-a.m();
-a[n] += 4;
+i += 10;    // data manipulation - adding 10 onto 'i'.
+a.m();      // method call.
+a[n] += 4;  // data manipulation - adding 4 onto the index 'n' of array 'a'.
 ```
 
 
-## Variable Declaration and Initialization Statement:
+## Variable Declarations & Initializations:
+
+### Variable Declaration Statement:
+
+For basic data types or Objects: `<type-name> <variable name>`
+
+For Arrays: `<type-name>[] <variable name>`
+
+Example:
+```java
+int   a;
+int[] b;
+```
+
+### Variable Initialization Statement:
+
+For basic data types: `<variable name> = <expression that matches the type of the variable>`
+
+For Arrays: `<variable name> = new <type of the variable>[]{<comma-separated expressions that matches the type of the variable>}`
+
+For Objects: `<variable name> = new <type of the variable>(<comma-separated values for constructor>)`
+
+
+### Variable Declaration & Initialization Together:
 
 For basic data types:
 ```
 <type-name> <variable name> = <expression that matches the type-name>;
 ```
-Example:
-```java
-int i = 5;
-```
 
 For Arrays:
 ```
-<type-name>[] <variable name> = new <type-name>[<integer expression>]{<comma-separated expressions that matches the type-name>};
-```
-Example:
-```java
-int[] i = new int[3]{5, 7, 100};
-```
-
-If you just want the array to start empty, omit the `{}` part:
-```
-<type-name>[] <variable name> = new <type-name>[<integer expression>];
-```
-Example:
-```java
-double[] nums = new double[a * 3];
+<type-name>[] <variable name> = new <type-name>[<integer expression>]{<comma-separated expressions that match the type of the type-name>};
 ```
 
 For Objects:
 ```
 <type-name> <variable name> = new <type-name>(<comma-separated values for constructor>);
 ```
+
 Example:
 ```java
+int a = 5;
+int[] b = new int[3]{5, 7, 100};
 MyClass g = new MyClass();
+```
+
+If you just want the array to start empty, omit/leave out the `{}` part:
+```
+<type-name>[] <variable name> = new <type-name>[<integer expression>];
+```
+Example:
+```java
+double[] nums = new double[a * 3];
 ```
 
 
@@ -472,7 +520,7 @@ System.out.println("is x greater than 7?: " + (x > 7? "yes" : "no"));
 Since Ternary Expressions are themselves expressions, that means you can _nest_ them but be careful doing this because it can hurt readability [ability for programmers to read and understand what the code is doing and why]. A good tip is to use parentheses to make it a bit clearer but still tread carefully.
 :
 ```java
-int comparison = (x < 0)? -1 : ((x > 0)? 1 : 0);
+int x_comparison = (x < 0)? -1 : ((x > 0)? 1 : 0);
 ```
 
 
@@ -487,9 +535,10 @@ If you don't have a `break` separating each case, the code control-flow will the
 `default` doesn't need a `break` since `default` case has to always be the ending case.
 ```
 switch (<integer or string expression>) {
-	case <integer or string constant expression>:
+	case <integer or string constant expression>: {
 		<statement>
 		break;
+	}
 	default:
 		<statement>
 }
@@ -697,5 +746,228 @@ try {
 	System.out.println("Error :: ****" + e + "****");
 }
 ```
+
+---
+
+# Putting Logic into Code: Applied Programming
+
+## Using Methods to Refactor and Organize Code
+
+Often if you have repetitive code, it's best to abstract that code into a method.
+
+Using letters in place of each line of code, what pattern of code do you notice in this abstract example?:
+```
+a; b; c;
+x;
+a; b; c;
+y;
+a; b; c;
+z;
+```
+
+Hopefully you notice that the code doing `a`, `b`, and `c` repeat three times. In such a case, this repetition can be better organized by having a method that has a single set of `a`, `b`, and `c` and we can just repeat these lines of code by calling the method:
+
+```
+method doThing() {
+	a; b; c;
+}
+```
+
+Thus the code in the abstract example can now be simplified into:
+```
+doThing();
+x;
+doThing();
+y;
+doThing();
+z;
+```
+
+
+Example of repetitive code:
+```java
+import java.util.Scanner;
+
+public class QuadraticFormula {
+	public static void main(String[] args) {
+		System.out.println("Welcome to the Quadratic Formula Solver | Ax^2 + Bx + C = 0");
+		Scanner s = new Scanner(System.in);
+		
+		System.out.println("Enter A: ");
+		double a = s.nextDouble();
+		
+		System.out.println("Enter B: ");
+		double b = s.nextDouble();
+		
+		System.out.println("Enter C: ");
+		double c = s.nextDouble();
+		
+		double x1 = (-b + Math.sqrt( (b*b) - (4*a*c) )) / (2*a);
+		double x2 = (-b - Math.sqrt( (b*b) - (4*a*c) )) / (2*a);
+		
+		System.out.println("root x1: " + x1);
+		System.out.println("root x2: " + x2);
+	}
+}
+```
+
+Let's rewrite our earlier example in the abstract pseudocode to better highlight what kind of patterns we can find.
+
+let's define `System.out.println` as `a`.
+let's define `double <var name> = s.nextDouble()` as `b`.
+
+```
+public class QuadraticFormula {
+	public static void main(String[] args) {
+		a("Welcome to the Quadratic Formula Solver | Ax^2 + Bx + C = 0");
+		Scanner s = new Scanner(System.in);
+		
+		a("Enter A: ");
+		b;
+		
+		a("Enter B: ");
+		b;
+		
+		a("Enter C: ");
+		b;
+		
+		double x1 = (-b + Math.sqrt( (b*b) - (4*a*c) )) / (2*a);
+		double x2 = (-b - Math.sqrt( (b*b) - (4*a*c) )) / (2*a);
+		
+		a("root x1: " + x1);
+		a("root x2: " + x2);
+	}
+}
+```
+
+There is a common repetition between `a` and `b` in the code. We can wrap `a` and `b` into a method and have it return something. What would the parameters be though? Well the parameters would be everything that our `a` and `b` uses in itself.
+
+So earlier, we defined `a` and `b` as:
+`System.out.println` as `a`.
+`double <var name> = s.nextDouble()` as `b`.
+
+In the context of where `a` is used in the repetitive pattern, all it does is print a string so we'll need a `String` parameter.
+In the context where `b` is used in the repetitive pattern, `b` itself uses the `Scanner` object `s` so that means we'll need a `Scanner` parameter as well.
+
+That just about covers the parameters but what about the return type? For the return type, we analyze the pattern to see what data is usually set or given from the pattern. In `b`, we see that the `Scanner` reads a `double` from input and puts it into a variable of a different name each time the abstract line of code `b` is executed. We can take advantage of this by returning the `double` that was read from input.
+
+```java
+public static double getDoubleFromInput(String msg, Scanner s) {
+	System.out.println(msg);      // code 'a'.
+	double d = s.nextDouble();    // code 'b'.
+	return d;
+}
+```
+
+since we're returning the `double` variable that has the `double` we read from input, we can further simplify the method by just returning the input reading directly:
+```java
+public static double getDoubleFromInput(String msg, Scanner s) {
+	System.out.println(msg);  // code 'a'.
+	return s.nextDouble();    // still technically code 'b'.
+}
+```
+
+This is also a good time to talk about method naming. Like with variables, you should give methods a name that reflects their purpose and usage. I chose the name `getDoubleFromInput` because that's mostly what the method does. Although it also prints a string variable named as `msg` to the user, the purpose of it is to alert the user to give an input, so the name for it clearly reflects its purpose and usage.
+
+With the method, we can replace the abstract lines of code we defined as `a` and `b` with the method call and supply the values in their place as arguments to the method call:
+
+before:
+```java
+System.out.println("Enter A: ");
+double a = s.nextDouble();
+```
+after:
+```java
+double a = getDoubleFromInput("Enter A: ", s);
+```
+
+
+Thus, when we apply the method to the other repeating lines, we get a more simplified version of our previous code:
+```java
+import java.util.Scanner;
+
+public class QuadraticFormula {
+	public static double getDoubleFromInput(String msg, Scanner s) {
+		System.out.println(msg);
+		return s.nextDouble();
+	}
+	public static void main(String[] args) {
+		System.out.println("Welcome to the Quadratic Formula Solver | Ax^2 + Bx + C = 0");
+		Scanner s = new Scanner(System.in);
+		
+		double a = getDoubleFromInput("Enter A: ", s);
+		double b = getDoubleFromInput("Enter B: ", s);
+		double c = getDoubleFromInput("Enter C: ", s);
+		
+		double x1 = (-b + Math.sqrt( (b*b) - (4*a*c) )) / (2*a);
+		double x2 = (-b - Math.sqrt( (b*b) - (4*a*c) )) / (2*a);
+		
+		System.out.println("root x1: " + x1);
+		System.out.println("root x2: " + x2);
+	}
+}
+```
+
+By refactoring our code into methods, we avoid repetition, make our code more organized, and make it easier to modify in the future. If the input process changes, we only need to update our method instead of multiple lines in the main code.
+
+We can also go further with the code by simplifying the quadratic formula computation.
+Let's now define `Q1` as the line of code `(-b + Math.sqrt( (b*b) - (4*a*c) )) / (2*a)`
+and define `Q2` as the line of code `(-b - Math.sqrt( (b*b) - (4*a*c) )) / (2*a)`.
+
+Thing is, we can also abstract `Q1` and `Q2` themselves.
+Let's define `X` as `Math.sqrt((b*b) - (4*a*c))` and `Y` as `(2*a)`.
+So now `Q1` and `Q2` are redefined as `(-b + X) / Y` and `(-b - X) / Y` respectively.
+In a sense, we've made `Q1` and `Q2` into pseudomethods since they both take `X` and `Y` as pseudoparameters:
+```
+Q1(X, Y)
+Q2(X, Y)
+```
+
+Given the abstract code definitions and the subdefinitions, we can surmise that the parameters we'd need for our method is `a`, `b`, and `c` all as `double` type as they're the only values being used. Since `Math.sqrt` is public method, we don't need to get it as a parameter somehow. One thing we do need to keep in mind is that `Math.sqrt` returns a `double` value.
+
+Another thing is what about our return type? We have a `Q1` and a `Q2`, which means we need to somehow return two values but how do we return two `double` values at the same time? Since `Q1` and `Q2` are both expressions of type `double`, that means we can enclose the two results in a `double` array! This will allow us to return both X roots of the quadratic formula computation without having to do a separate method for either the addition or subtraction part with `-b`.
+
+So our overall method now looks like:
+```java
+public static double[] computeQuadratic(double a, double b, double c) {
+	double sqrt_val = Math.sqrt( (b*b) - (4*a*c) );   // X
+	double two_a = 2*a;                               // Y
+	double x1 = (-b + sqrt_val) / two_a;              // Q1(X, Y)
+	double x2 = (-b - sqrt_val) / two_a;              // Q2(X, Y)
+	return new double[]{ x1, x2 };
+}
+```
+
+
+So now our code looks like:
+```java
+import java.util.Scanner;
+
+public class QuadraticFormula {
+	public static double getDoubleFromInput(String msg, Scanner s) {
+		System.out.println(msg);
+		return s.nextDouble();
+	}
+	public static double[] computeQuadratic(double a, double b, double c) {
+		double sqrt_val = Math.sqrt((b*b) - (4*a*c));
+		double two_a = 2*a;
+		double x1 = (-b + sqrt_val) / two_a;
+		double x2 = (-b - sqrt_val) / two_a;
+		return new double[]{ x1, x2 };
+	}
+	public static void main(String[] args) {
+		System.out.println("Welcome to the Quadratic Formula Solver | Ax^2 + Bx + C = 0");
+		Scanner s = new Scanner(System.in);
+		
+		double a = getDoubleFromInput("Enter A: ", s);
+		double b = getDoubleFromInput("Enter B: ", s);
+		double c = getDoubleFromInput("Enter C: ", s);
+		double[] Xs = computeQuadratic(a, b, c);
+		System.out.printf("roots x1: %f, x2: %f\n", Xs[0], Xs[1]);
+	}
+}
+```
+
+Our code is now the most organized it can be. We've effectively organized the code to retrieve a specific number of inputs after alerting the user to do so, perform calculations of the retrieved input, and then display the computation back to the user. Try finding repetitive code in a different example, and think about how you might refactor it using methods.
 
 ---
