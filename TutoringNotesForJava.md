@@ -1,3 +1,5 @@
+# Basic Java Review by Kevin Yonan
+
 # Java Types & Expressions
 
 ## Intro
@@ -208,7 +210,9 @@ Level   Operator   Description           Associativity
           new      object creation
           a.b      member access
          a::b      method reference
+                                                      
         a(b,c,..)  method call
+       a.b(c,d,..)
 ------------------------------------------------------
 15        a++      unary post-increment  left-to-right
           a--      unary post-decrement
@@ -284,7 +288,7 @@ public static void main(String[] args) {
 }
 ```
 
-the `public static void main(String[] args)` part, this is called the __**method header**__.
+the `public static void main(String[] args)` part, this is called the __**method header or method signature**__.
 
 Referring back to the method structure, the method header is divided into 4 parts:
 `public static` - modifiers.
@@ -969,5 +973,3 @@ public class QuadraticFormula {
 ```
 
 Our code is now the most organized it can be. We've effectively organized the code to retrieve a specific number of inputs after alerting the user to do so, perform calculations of the retrieved input, and then display the computation back to the user. Try finding repetitive code in a different example, and think about how you might refactor it using methods.
-
----
