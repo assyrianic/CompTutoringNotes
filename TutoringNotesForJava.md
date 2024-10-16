@@ -152,13 +152,143 @@ System.out.println(--a);  // prints -1. 'a' is now -1.
 
 #### Bitwise Operators (example) [gives an integer type result]
 
-* `&` - bitwise AND (`x & y`)
+* `&` - bitwise AND (`x & y`) [performs bitwise AND on all bits of an integer, in parallel]
+```
+             |---------------|
+truth table: | A | B | A & B |
+             |---------------|
+             | 0 | 0 |   0   |
+             |---------------|
+             | 0 | 1 |   0   |
+             |---------------|
+             | 1 | 0 |   0   |
+             |---------------|
+             | 1 | 1 |   1   |
+             |---------------|
+
+6 & 11 == 0110 (decimal 6) & 1011 (decimal 11):
+
+     0110
+&    1011
+---------
+     0010 == 2
+```
 * `|` - bitwise OR (`x | y`)
+```
+             |---------------|
+truth table: | A | B | A | B |
+             |---------------|
+             | 0 | 0 |   0   |
+             |---------------|
+             | 0 | 1 |   1   |
+             |---------------|
+             | 1 | 0 |   1   |
+             |---------------|
+             | 1 | 1 |   1   |
+             |---------------|
+
+5 | 3 == 0101 (decimal 5) | 0011 (decimal 3):
+
+     0101
+|    0011
+---------
+     0111 == 7
+```
 * `^` - bitwise XOR (`x ^ y`)
+```
+             |---------------|
+truth table: | A | B | A ^ B |
+             |---------------|
+             | 0 | 0 |   0   |
+             |---------------|
+             | 0 | 1 |   1   |
+             |---------------|
+             | 1 | 0 |   1   |
+             |---------------|
+             | 1 | 1 |   0   |
+             |---------------|
+
+5 ^ 3 == 0101 (decimal 5) ^ 0011 (decimal 3):
+
+     0101
+^    0011
+---------
+     0110 == 8
+
+a ^ a == 0
+```
+* `~` - bitwise NOT/complement (`~x`)
+```
+             |--------|
+truth table: | A | ~A |
+             |--------|
+             | 0 |  1 |
+             |--------|
+             | 0 |  0 |
+             |--------|
+
+~5 == ~0101 (decimal 5):
+
+~    0101
+---------
+     1010 == 10
+
+```
+
+##### Bit Shifting
+
+Only allowed on integer types, bit shifting let's you accomplish doing multiples of powers-of-two by shifting the bits of an integer type either to the left or to the right.
+
 * `<<` - logical/arithmetic Left Bit Shift (`x << y`)
+```
+a << n == a*(2^n)
+
+Example #1: 1 << 4 == 1*(2^4) == 2^4 == 2*2*2*2 == 16
+Example #2: 3 << 3 == 3*(2^3) == 3*8 == 24
+Example #2: 10 << 4 == 10*(2^4) == 10*16 == 160
+```
+
 * `>>` - arithmetic Right Bit Shift (`x >> y`)
 * `>>>` - logical Right Bit Shift (`x >>> y`)
-* `~` - bitwise NOT/complement (`~x`)
+```
+a >> n == a / (2^n)
+Example: -4 >> 1 == -4 / (2^1) == -4 / 2 == -2
+
+
+How '>>>' works:
+sign bit == 2^(bit size of integer type - 1)
+Example: 2^7 == 128 -> in binary: 1000 0000
+                                  ^ - 7th bit index
+
+non-sign bits == sign bit - 1
+Example: 2^7 - 1 == 127 -> in binary: 0111 1111
+
+all ones == sign bit + non-sign bits
+Example: 2^7 + (2^7 - 1) == 1000 0000 + 0111 1111 == 1111 1111 (binary) or 0xff (hexadecimal)
+
+No matter how many bits the integer makes up, all binary ones means it's all hexadecimal Fs.
+
+a >>> n == (a & all ones) / (2^n)
+
+Example (using `int` so 32-bit): 1 >>> 4 == (1 & 0xffff_ffff) / (2^4) == 1 / 16 == 0
+Example: 4 >>> 1 == (4 & 0xffff_ffff) / (2^1) == 4 / 2 == 2
+
+if 'a' is negative, we need to get its hex value, to start we think of its bits as opposite, all Fs/all ones is '-1'.
+Assuming 8-bit integers:
+-1 (binary 1111 1111) - 1 (binary 0000 0001) == -2 (binary 1111 1110)
+So to take a number like -5 and convert it to hex, we get how it looks as a positive number: '0000 0101'
+and then transform it like the '~' bitwise NOT operation: '1111 1010' (decimal -6) and then add 1 to it! (1111 1011) which is 0xFB!
+
+Example: -4 >>> 1:
+-4 -> take '4' and then flip everything: (0000 0000 0000 0000 0000 0000 0000 0100) -> (1111 1111 1111 1111 1111 1111 1111 1011)
+Add one: (1111 1111 1111 1111 1111 1111 1111 1011) -> (1111 1111 1111 1111 1111 1111 1111 1100) which is in -4 in binary, 0xffff_fffc in hex.
+
+Move the entire bit-set down by 1 and the value is the result of '-4 >>> 1':
+(1111 1111 1111 1111 1111 1111 1111 1100) -> (0111 1111 1111 1111 1111 1111 1111 1110) which is 0x7ffffffe in hexadecimal
+
+Identity Rule with shifting any direction with 0.
+a << 0 == a >> 0 == a >>> 0 == a
+```
 
 #### Comparison Operators (example) [gives a boolean type result]
 
@@ -973,3 +1103,5 @@ public class QuadraticFormula {
 ```
 
 Our code is now the most organized it can be. We've effectively organized the code to retrieve a specific number of inputs after alerting the user to do so, perform calculations of the retrieved input, and then display the computation back to the user. Try finding repetitive code in a different example, and think about how you might refactor it using methods.
+
+---
