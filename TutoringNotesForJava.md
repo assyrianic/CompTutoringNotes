@@ -173,6 +173,7 @@ truth table: | A | B | A & B |
 ---------
      0010 == 2
 ```
+
 * `|` - bitwise OR (`x | y`)
 ```
              |---------------|
@@ -194,6 +195,7 @@ truth table: | A | B | A | B |
 ---------
      0111 == 7
 ```
+
 * `^` - bitwise XOR (`x ^ y`)
 ```
              |---------------|
@@ -217,6 +219,7 @@ truth table: | A | B | A ^ B |
 
 a ^ a == 0
 ```
+
 * `~` - bitwise NOT/complement (`~x`)
 ```
              |--------|
@@ -224,7 +227,7 @@ truth table: | A | ~A |
              |--------|
              | 0 |  1 |
              |--------|
-             | 0 |  0 |
+             | 1 |  0 |
              |--------|
 
 ~5 == ~0101 (decimal 5):
@@ -289,6 +292,64 @@ Move the entire bit-set down by 1 and the value is the result of '-4 >>> 1':
 Identity Rule with shifting any direction with 0.
 a << 0 == a >> 0 == a >>> 0 == a
 ```
+
+##### Tricks using Bitwise Operators:
+
+`a & a == a`. Identity Law
+
+`a & 1 == 1` if `a` is odd, 0 if even.
+
+`a & (a-1) == 0` if `a` is a power of 2.
+
+`a & power-of-2-minus-1 == a % power-of-two` -> Example: `a % 32 == a & 31`.
+
+`x = a ^ b ^ x` -> same as doing:
+```java
+if( x==a )
+	x = b;
+else if( x==b )
+	x = a;
+```
+
+Getting a specific bit position: `1 << bit position`
+Example getting the 2nd bit position for an integer: `1 << 1 == 2`.
+
+Setting the bit position `n` on an integer: `i |= (1 << n)`
+
+Checking the bit position `n` on an integer: `i & (1 << n) > 0`
+
+Toggling the bit position `n` on an integer: `i ^= (1 << n)`
+
+Clearing/Removing the bit position `n` from an integer: `i &= ~(1 << n)`
+
+Manipulating specific bit positions allow us to use an integer with N bits as N boolean values in one variable! Bit positions like these are also called **bit flags**. You can also do the same operations on multiple bit-flags at once:
+
+Setting multiple bit positions on an integer: `i |= ( (1 << A) | ... | (1 << Z) )`
+
+Checking multiple bit positions on an integer: `i & ( (1 << A) | ... | (1 << Z) ) > 0`
+
+Toggling multiple bit positions on an integer: `i ^= ( (1 << A) | ... | (1 << Z) )`
+
+Clearing/Removing multiple bit positions from an integer: `i &= ~( (1 << A) | ... | (1 << Z) )`
+
+Examples:
+```java
+int i = 0;
+
+...;
+
+i |= (2 | 4);    // set 2nd and 3rd bit at the same time.
+i ^= (4 | 8);    // toggle 3rd and 4th bit.
+if( (i & (2 | 8)) > 0 ) {    // test if 2nd and 4th bit are turned on.
+	...;
+}
+
+...;
+
+i &= ~(-1);      // clear all active bits.
+// recall that -1 is all 1s, so flipping all 1s makes it all 0s.
+```
+
 
 #### Comparison Operators (example) [gives a boolean type result]
 
@@ -1073,7 +1134,7 @@ public static double[] computeQuadratic(double a, double b, double c) {
 ```
 
 
-So now our code looks like:
+So our example code now looks like:
 ```java
 import java.util.Scanner;
 
@@ -1104,4 +1165,19 @@ public class QuadraticFormula {
 
 Our code is now the most organized it can be. We've effectively organized the code to retrieve a specific number of inputs after alerting the user to do so, perform calculations of the retrieved input, and then display the computation back to the user. Try finding repetitive code in a different example, and think about how you might refactor it using methods.
 
+
+## Separation of Concerns
+
+    What it is: The idea that different parts of a program should handle different aspects of functionality. For example, UI code should be separate from the logic or data manipulation.
+    Why it’s important: Helps students understand how to organize code into different modules or classes based on their roles. Improves readability, testability, and maintainability.
+    Example: Separate business logic from presentation in a basic MVC (Model-View-Controller) pattern.
+
+## Code Refactoring Techniques
+
+    Concept: Refactoring is the process of restructuring existing code without changing its external behavior to improve readability, structure, or performance.
+    Why It’s Important: Clean code is easier to maintain and extend, and refactoring helps avoid technical debt.
+    Application: Teach students common refactoring patterns such as extracting classes, simplifying conditionals, or breaking down large methods. Use examples like:
+        Extract Method (splitting large methods into smaller, reusable ones)
+        Inline Variable (removing unnecessary local variables)
+        Replace Magic Numbers (with named constants)
 ---
